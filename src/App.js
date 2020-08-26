@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import {
   SafeAreaView,
@@ -10,16 +10,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import api from './services/api.js';
+
 export default function App() {
+  const [repositories, setRepositories] = useState([]);
+
   async function handleLikeRepository(id) {
     // Implement "Like Repository" functionality
   }
+
+  useEffect(() => {
+    api.get('repositories').then(response => {
+    setRepositories(response.data);
+    })
+  }, [])
 
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
       <SafeAreaView style={styles.container}>
         <View style={styles.repositoryContainer}>
+
           <Text style={styles.repository}>Repository 1</Text>
 
           <View style={styles.techsContainer}>
